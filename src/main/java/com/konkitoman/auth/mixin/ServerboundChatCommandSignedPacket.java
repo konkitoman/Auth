@@ -1,6 +1,5 @@
 package com.konkitoman.auth.mixin;
 
-import com.konkitoman.auth.Auth;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -9,13 +8,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static com.konkitoman.auth.common.Auth.AUTHORIZED;
+
 @Mixin(net.minecraft.network.protocol.game.ServerboundChatCommandSignedPacket.class)
 public class ServerboundChatCommandSignedPacket {
     @Inject(method = "handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V", at = @At("HEAD"), cancellable = true)
     public void handle(ServerGamePacketListener serverGamePacketListener, CallbackInfo ci) {
         ServerGamePacketListenerImpl impl = (ServerGamePacketListenerImpl) serverGamePacketListener;
         String playerName = impl.getPlayer().getName().getString();
-        if (Auth.AUTHORIZED.contains(playerName)) {
+        if (AUTHORIZED.contains(playerName)) {
             return;
         }
 

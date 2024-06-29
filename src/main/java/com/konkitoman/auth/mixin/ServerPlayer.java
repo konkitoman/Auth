@@ -1,6 +1,6 @@
 package com.konkitoman.auth.mixin;
 
-import com.konkitoman.auth.ServerPlayerSecret;
+import com.konkitoman.auth.common.ServerPlayerSecret;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -14,15 +14,15 @@ public class ServerPlayer implements ServerPlayerSecret {
     public String secret = null;
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci){
-        if (secret != null){
+    public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
+        if (secret != null) {
             compoundTag.putString("secret", secret);
         }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci){
-        if (compoundTag.contains("secret")){
+    public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
+        if (compoundTag.contains("secret")) {
             secret = compoundTag.getString("secret");
         }
     }
