@@ -31,8 +31,8 @@ import java.util.HashSet;
 public class Auth {
     public static final Logger LOGGER = LoggerFactory.getLogger("Auth");
 
-    public static final ResourceKey<Level> AUTH = ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse("auth:auth"));
-    public static final ResourceKey<DimensionType> AUTH_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.parse("auth:auth"));
+    public static final ResourceKey<Level> AUTH = ResourceKey.create(Registries.DIMENSION, ResourceLocation.tryParse("auth:auth"));
+    public static final ResourceKey<DimensionType> AUTH_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.tryParse("auth:auth"));
 
     public static MinecraftServer SERVER;
     public static HashSet<String> AUTHORIZED = new HashSet<>();

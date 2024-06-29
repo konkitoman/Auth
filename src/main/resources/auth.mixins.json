@@ -5,7 +5,6 @@
   "server": [
     "ServerboundChatPacket",
     "ServerboundChatCommandPacket",
-    "ServerboundChatCommandSignedPacket",
     "ServerPlayer"
   ],
   "injectors": {

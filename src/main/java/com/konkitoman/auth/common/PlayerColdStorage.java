@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -49,8 +50,10 @@ public class PlayerColdStorage {
         player.connection.send(new ClientboundChangeDifficultyPacket(levelData.getDifficulty(), levelData.isDifficultyLocked()));
         player.connection.send(new ClientboundPlayerAbilitiesPacket(player.getAbilities()));
         player.connection.send(new ClientboundSetCarriedItemPacket(player.getInventory().selected));
-        player.connection.send(new ClientboundUpdateRecipesPacket(SERVER.getRecipeManager().getOrderedRecipes()));
-        playerList.sendActivePlayerEffects(player);
+        player.connection.send(new ClientboundUpdateRecipesPacket(SERVER.getRecipeManager().getRecipes()));
+        for(MobEffectInstance effect: player.getActiveEffects()){
+            player.connection.send(new ClientboundUpdateMobEffectPacket(player.getId(), effect));
+        }
         playerList.sendAllPlayerInfo(player);
 
         CompoundTag compoundTag2;
