@@ -23,11 +23,8 @@ public class ServerboundChatPacket {
 
     @Inject(method = "handle(Lnet/minecraft/network/protocol/game/ServerGamePacketListener;)V", at = @At("HEAD"), cancellable = true)
     public void handle(ServerGamePacketListener serverGamePacketListener, CallbackInfo ci) {
-
         ServerGamePacketListenerImpl impl = (ServerGamePacketListenerImpl) serverGamePacketListener;
-        LOGGER.info("Message: {}", message);
         String playerName = impl.getPlayer().getName().getString();
-        LOGGER.info("Player: {}", impl.getPlayer().getName().getString());
         if (AUTHORIZED.contains(impl.getPlayer().getName().getString())) {
             return;
         }
